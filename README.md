@@ -54,11 +54,12 @@ every = 90
 ```toml
 numWorkers = 4
 mongodb = "localhost"
-port = "9010"
+apiPort = "9010"
+webPort = "9020"
 ```
 In this part, you can specify the number of Workers which will work on your monitoring tasks. This number should be about the same as the number of services you want to monitor!   
 Your MongoDB string should be a complete URL containing authentification, ports and hostnames.
-At last, you have to specify the port on which the API is listening (see API for more details!).
+At last, you have to specify the ports on which the API and the Web-Page (Coming soon!) are listening (see API for more details!).
 ```toml
 [alert]
 typ = "alertTelegram"
@@ -114,3 +115,8 @@ every = 50
 ```
 SurV will try to establish a TCP connection with service listening on the port you specified!
 This time, you have to supplie a domain or IP with the fitting port!
+
+## API
+Endpoints:
+- `/` - Check if SurV-API is running
+- `/services` - GET all services that registered and monitored including their current status and their last check timestamp!
