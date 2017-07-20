@@ -21,7 +21,8 @@ Besides that, all configuration is made in config.toml:
 ```toml
 numWorkers = 4
 mongodb = "localhost"
-port = "9010"
+apiPort = "9010"
+webPort = "9020"
 
 [alert]
 typ = "alertTelegram"
@@ -93,7 +94,7 @@ method = "methodPing"
 [services.cron]
 every = 60
 ```
-It is important that you use a plain IP as the `target`!
+It is important that you use a plain IP as the `target`!     
 2. -methodHTTP-
 ```toml
 [[services]]
@@ -103,7 +104,7 @@ method = "methodHTTP"
 [services.cron]
 every = 10
 ```
-Make sure to supplie a valid URL containing a protocol like http:// or ftp://!
+Make sure to supplie a valid URL containing a protocol like http:// or ftp://!     
 3. -methodTCP-
 ```toml
 [[services]]
