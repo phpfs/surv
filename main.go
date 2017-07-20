@@ -12,14 +12,14 @@ import (
 var config *Config
 
 func main() {
+	if(!readConfig(configFile)){
+		panic("Sync wasn't successfull!")
+	}
+	
 	session, err := mgo.Dial(config.Mongodb)
 	defer session.Close()
 	if(err != nil){
 		fmt.Println(err)
-	}
-
-	if(!readConfig(configFile)){
-		panic("Sync wasn't successfull!")
 	}
 
 	if(!syncServices(session)){
