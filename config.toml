@@ -1,4 +1,4 @@
-umWorkers = 4
+numWorkers = 4
 mongodb = "localhost"
 apiPort = "9010"
 webPort = "9020"
