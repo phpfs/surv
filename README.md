@@ -85,7 +85,7 @@ At last, specify an interval named `every` after which your service should be re
 
 ## Methods
 Currently, SurV supports 3 methods to check a service's availability:
-1. -methodPing-
+1. **methodPing**
 ```toml
 [[services]]
 name = "Test Google"
@@ -95,7 +95,7 @@ method = "methodPing"
 every = 60
 ```
 It is important that you use a plain IP as the `target`!     
-2. -methodHTTP-
+2. **methodHTTP**
 ```toml
 [[services]]
 name = "Test Localhost"
@@ -105,7 +105,7 @@ method = "methodHTTP"
 every = 10
 ```
 Make sure to supplie a valid URL containing a protocol like http:// or ftp://!     
-3. -methodTCP-
+3. **methodTCP**
 ```toml
 [[services]]
 name = "IMAP"
