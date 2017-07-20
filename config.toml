@@ -1,0 +1,30 @@
+numWorkers = 4
+mongodb = "localhost"
+apiPort = "9010"
+webPort = "9020"
+
+[alert]
+typ = "alertTelegrams"
+target = "Chat_ID"
+auth = "Token-For-HTTP-API"
+
+[[services]]
+name = "Test Google"
+target = "8.8.8.8"
+method = "methodPing"
+[services.cron]
+every = 60
+
+[[services]]
+name = "Test T-Online IMAP"
+target = "secureimap.t-online.de:993"
+method = "methodTCP"
+[services.cron]
+every = 50
+
+[[services]]
+name = "Test Bing"
+target = "https://bing.de"
+method = "methodHTTP"
+[services.cron]
+every = 90
