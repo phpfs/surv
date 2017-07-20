@@ -1,10 +1,10 @@
-numWorkers = 4
+umWorkers = 4
 mongodb = "localhost"
 apiPort = "9010"
 webPort = "9020"
 
 [alert]
-typ = "alertTelegrams"
+typ = "alertTelegram"
 target = "Chat_ID"
 auth = "Token-For-HTTP-API"
 
