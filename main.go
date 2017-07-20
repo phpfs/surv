@@ -12,7 +12,7 @@ import (
 var config *Config
 
 func main() {
-	session, err := mgo.Dial("localhost")
+	session, err := mgo.Dial(config.Mongodb)
 	defer session.Close()
 	if(err != nil){
 		fmt.Println(err)
