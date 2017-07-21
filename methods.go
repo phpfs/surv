@@ -74,10 +74,10 @@ func methodHTTP(url string)(*mResult){
 
 	if(strings.Contains(url, "http://") || strings.Contains(url, "https://") || strings.Contains(url, "ftp://")) {
 		start := time.Now()
-		_, err := http.Get(url)
+		resp, err := http.Get(url)
 		dur := time.Since(start)
 
-		if err != nil {
+		if(err != nil || resp.StatusCode != 200){
 			result.Success = false
 			result.Error = err
 		} else {

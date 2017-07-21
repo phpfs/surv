@@ -23,6 +23,7 @@ func alert(name string, status bool) {
 }
 
 func startAlert(){
+	fmt.Println("Starting alert system...")
 	if(config.Alert.Typ == "alertTelegram"){
 		startTelegram()
 	}
