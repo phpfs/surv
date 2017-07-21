@@ -13,7 +13,7 @@ var config *Config
 var alertAPI AlertAPI
 
 func main() {
-	fmt.Println("\n\nWelcome to ", survVersion, " - starting up...\n\n")
+	fmt.Println("\n\nWelcome to |SurV|", survVersion, "- starting up...\n\n")
 
 	if(!readConfig(configFile)){
 		panic("Sync wasn't successfull!")
