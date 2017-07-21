@@ -1,7 +1,9 @@
 numWorkers = 4
 mongodb = "localhost"
+token = "avc"
 apiPort = "9010"
 webPort = "9020"
+
 
 [alert]
 typ = "alertTelegram"

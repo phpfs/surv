@@ -38,6 +38,7 @@ type (
 	Config struct {
 		NumWorkers int
 		Mongodb string
+		Token string
 		ApiPort string
 		WebPort string
 		Services []Service `json:"services"`
