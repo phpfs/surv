@@ -7,11 +7,10 @@ import (
 	"io/ioutil"
 	"github.com/BurntSushi/toml"
 	"net/http"
-	"gopkg.in/telegram-bot-api.v4"
 )
 
 var config *Config
-var tgbot *tgbotapi.BotAPI
+var alertAPI AlertAPI
 
 func main() {
 	fmt.Println("\n\nWelcome to ", survVersion, " - starting up...\n\n")

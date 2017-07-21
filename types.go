@@ -3,6 +3,7 @@ package main
 import (
 	"gopkg.in/mgo.v2/bson"
 	"time"
+	"gopkg.in/telegram-bot-api.v4"
 )
 
 type (
@@ -53,5 +54,9 @@ type (
 
 	Cron struct {
 		Every int `json:"every"`
+	}
+
+	AlertAPI struct {
+		Telegram *tgbotapi.BotAPI
 	}
 )

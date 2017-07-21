@@ -30,17 +30,17 @@ func startAlert(){
 
 func startTelegram(){
 	var err error
-	tgbot, err = tgbotapi.NewBotAPI(config.Alert.Auth)
+	alertAPI.Telegram, err = tgbotapi.NewBotAPI(config.Alert.Auth)
 	if err != nil {
 		log.Panic(err)
 	}
 }
 
 func alertTelegram(target, msg string) bool {
-	if(len(target) > 3 && tgbot != nil && len(msg) > 5){
+	if(len(target) > 3 && alertAPI.Telegram != nil && len(msg) > 5){
 		chatInt, _ := strconv.Atoi(target)
 		msg := tgbotapi.NewMessage(int64(chatInt), msg)
-		tgbot.Send(msg)
+		alertAPI.Telegram.Send(msg)
 
 		return true
 	}else{
