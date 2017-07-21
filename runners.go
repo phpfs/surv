@@ -36,6 +36,13 @@ func runner(s *mgo.Session, id int){
 						fmt.Println(err)
 					}
 					task.Result = method(task)
+
+					if(!task.Result.Success){
+						task.Result = nil
+						time.Sleep(5 * time.Second)
+						task.Result = method(task)
+					}
+
 					task.Status = "finished"
 					task.Time = time.Now()
 					task.Worker = id
