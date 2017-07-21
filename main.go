@@ -7,9 +7,11 @@ import (
 	"io/ioutil"
 	"github.com/BurntSushi/toml"
 	"net/http"
+	"gopkg.in/telegram-bot-api.v4"
 )
 
 var config *Config
+var tgbot *tgbotapi.BotAPI
 
 func main() {
 	fmt.Println("\n\nWelcome to ", survVersion, " - starting up...\n\n")
@@ -27,6 +29,8 @@ func main() {
 	if(!syncServices(session)){
 		panic("Sync wasn't successfull!")
 	}
+
+	startAlert()
 
 	go createRunners(session)
 	go startHTTP(session)

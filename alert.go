@@ -16,21 +16,32 @@ func alert(name string, status bool) {
 	}
 
 	if(config.Alert.Typ == "alertTelegram"){
-		alertTelegram(config.Alert.Target, config.Alert.Auth, msg)
+		alertTelegram(config.Alert.Target, msg)
 	}else{
 		fmt.Println("[Alert] ", msg)
 	}
 }
 
-func alertTelegram(target, auth, msg string) bool {
-	if(len(target) > 3 && len(auth) > 20 && len(msg) > 5){
-		bot, err := tgbotapi.NewBotAPI(auth)
-		if err != nil {
-			log.Panic(err)
-		}
+func startAlert(){
+	if(config.Alert.Typ == "alertTelegram"){
+		startTelegram()
+	}
+}
+
+func startTelegram(){
+	var err error
+	tgbot, err = tgbotapi.NewBotAPI(config.Alert.Auth)
+	if err != nil {
+		log.Panic(err)
+	}
+}
+
+func alertTelegram(target, msg string) bool {
+	if(len(target) > 3 && tgbot != nil && len(msg) > 5){
 		chatInt, _ := strconv.Atoi(target)
 		msg := tgbotapi.NewMessage(int64(chatInt), msg)
-		bot.Send(msg)
+		tgbot.Send(msg)
+
 		return true
 	}else{
 		return false
