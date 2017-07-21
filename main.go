@@ -12,7 +12,7 @@ import (
 var config *Config
 
 func main() {
-	fmt.Println("Welcome to ", survVersion, " - starting up...")
+	fmt.Println("\n\nWelcome to ", survVersion, " - starting up...\n\n")
 
 	if(!readConfig(configFile)){
 		panic("Sync wasn't successfull!")
