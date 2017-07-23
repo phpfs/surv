@@ -6,10 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func syncServices(s *mgo.Session) bool {
-	session := s.Copy()
-	defer session.Close()
-
+func syncServices(session *mgo.Session) bool {
 	fmt.Println("Purging DB...")
 	err := session.DB("surv").C("services").DropCollection()
 
@@ -28,10 +25,7 @@ func syncServices(s *mgo.Session) bool {
 	return true
 }
 
-func serviceStatus(s *mgo.Session, id string, status bool){
-	session := s.Copy()
-	defer session.Close()
-
+func serviceStatus(session *mgo.Session, id string, status bool){
 	survs := session.DB("surv").C("services")
 
 	var S Service

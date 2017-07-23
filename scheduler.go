@@ -7,10 +7,7 @@ import (
 	"time"
 )
 
-func schedule(s *mgo.Session){
-	session := s.Copy()
-	defer session.Close()
-
+func schedule(session *mgo.Session){
 	survs := session.DB("surv").C("services")
 	tasks := session.DB("surv").C("tasks")
 
