@@ -31,7 +31,7 @@ func apiServices(s *mgo.Session, w http.ResponseWriter, r *http.Request){
 	}
 
 	if(token == config.Token) {
-		session := s.Clone()
+		session := s.Copy()
 		defer session.Close()
 		survs := session.DB("surv").C("services")
 

@@ -7,7 +7,7 @@ import (
 )
 
 func syncServices(s *mgo.Session) bool {
-	session := s.Clone()
+	session := s.Copy()
 	defer session.Close()
 
 	fmt.Println("Purging DB...")
@@ -29,7 +29,7 @@ func syncServices(s *mgo.Session) bool {
 }
 
 func serviceStatus(s *mgo.Session, id string, status bool){
-	session := s.Clone()
+	session := s.Copy()
 	defer session.Close()
 
 	survs := session.DB("surv").C("services")

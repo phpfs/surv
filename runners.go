@@ -8,7 +8,7 @@ import (
 )
 
 func runner(s *mgo.Session, id int){
-	session := s.Clone()
+	session := s.Copy()
 	defer session.Close()
 
 	fmt.Println("Worker ", id, " running...")

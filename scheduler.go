@@ -8,7 +8,7 @@ import (
 )
 
 func schedule(s *mgo.Session){
-	session := s.Clone()
+	session := s.Copy()
 	defer session.Close()
 
 	survs := session.DB("surv").C("services")
