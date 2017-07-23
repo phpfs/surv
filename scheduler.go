@@ -11,7 +11,7 @@ func schedule(session *mgo.Session){
 	survs := session.DB("surv").C("services")
 	tasks := session.DB("surv").C("tasks")
 
-	for ; ;  {
+	
 		var result []Service
 
 		err := survs.Find(bson.M{}).All(&result)
@@ -40,5 +40,5 @@ func schedule(session *mgo.Session){
 				}
 			}
 		}
-	}
+	
 }
