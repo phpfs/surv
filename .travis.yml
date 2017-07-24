@@ -1,0 +1,21 @@
+language: go
+
+go:
+  - 1.x
+  - 1.6
+  - 1.7.x
+  - master
+
+install:
+  - go get github.com/tatsushid/go-fastping
+  - go get github.com/BurntSushi/toml
+  - go get gopkg.in/mgo.v2
+  - go get gopkg.in/mgo.v2/bson
+  - go get gopkg.in/telegram-bot-api.v4
+
+jobs:
+  include:
+    - stage: test
+      script: go test -v ./...
+    - stage: build
+      script: go build
