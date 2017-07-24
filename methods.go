@@ -37,7 +37,7 @@ func methodPing(ip string)(*mResult){
 		fail = true
 	}
 	p.AddIPAddr(ra)
-	//p.Network("udp")
+	p.Network("udp")
 	p.OnRecv = func(addr *net.IPAddr, rtt time.Duration) {
 		//fmt.Printf("IP Addr: %s receive, RTT: %v\n", addr.String(), rtt)
 		fin = true
