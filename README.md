@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/phpfs/surv.svg?token=tayhKqSCvcqLEs2bNXpg&branch=master)](https://travis-ci.com/phpfs/surv) [![Code Climate](https://codeclimate.com/repos/597634f8106a620277000115/badges/d3b2547f051136c82396/gpa.svg)](https://codeclimate.com/repos/597634f8106a620277000115/feed)
 # SurV
 Have you ever wondered why monitoring has to be so hard?
 I mean - don't get me wrong - Prometheus and Nagios are great, but sometimes just a little overpowered.    
