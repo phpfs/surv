@@ -25,11 +25,11 @@ func runner(s *mgo.Session, id int){
 			time.Sleep(20 * time.Second)
 		} else {
 			if (err == mgo.ErrNotFound) {
-				time.Sleep(5 * time.Second)
+				time.Sleep(2 * time.Second)
 			} else {
 				_, err = tasks.Find(bson.M{"result": nil, "status": "pending", "_id": task.Id}).Apply(picked, &task)
 				if(err == mgo.ErrNotFound){
-					time.Sleep(50 * time.Millisecond)
+					time.Sleep(time.Second)
 				}else{
 					task.Status = "running"
 					err = tasks.Update(bson.M{"_id": task.Id}, &task)
