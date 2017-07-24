@@ -14,9 +14,9 @@ func TestMethodSystemPing(t *testing.T){
 
 	run2 := methodSystemPing("192.168.168.192")
 	if(!run2.Success){
-		t.Log(run1, "\n\nmethodSystemPing Test: 192.168.168.192 - Failed")
+		t.Log(run2, "\n\nmethodSystemPing Test: 192.168.168.192 - Failed")
 	}else{
-		t.Error(run1, "\n\nmethodSystemPing Test: 192.168.168.192 - Successfull")
+		t.Error(run2, "\n\nmethodSystemPing Test: 192.168.168.192 - Successfull")
 	}
 }
 
@@ -30,9 +30,9 @@ func TestMethodHTTP(t *testing.T){
 
 	run2 := methodSystemPing("google.com")
 	if(!run2.Success){
-		t.Log(run1, "\n\nmethodHTTP Test: google.com - Failed")
+		t.Log(run2, "\n\nmethodHTTP Test: google.com - Failed")
 	}else{
-		t.Error(run1, "\n\nmethodHTTP Test: google.com - Successfull")
+		t.Error(run2, "\n\nmethodHTTP Test: google.com - Successfull")
 	}
 }
 
@@ -46,8 +46,8 @@ func TestMethodTCP(t *testing.T){
 
 	run2 := methodSystemPing("secureimap.t-online.de:65023")
 	if(!run2.Success){
-		t.Log(run1, "\n\nmethodTCP Test: secureimap.t-online.de:65023 - Failed")
+		t.Log(run2, "\n\nmethodTCP Test: secureimap.t-online.de:65023 - Failed")
 	}else{
-		t.Error(run1, "\n\nmethodTCP Test: secureimap.t-online.de:65023 - Successfull")
+		t.Error(run2, "\n\nmethodTCP Test: secureimap.t-online.de:65023 - Successfull")
 	}
 }
