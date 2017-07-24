@@ -21,7 +21,8 @@ func runner(s *mgo.Session, id int){
 		var task Task
 		err := tasks.Find(bson.M{"result": nil, "status": "pending"}).One(&task)
 		if (err != nil && err != mgo.ErrNotFound) {
-			fmt.Println(err)
+			fmt.Println("Runner", id, ": ", err)
+			time.Sleep(20 * time.Second)
 		} else {
 			if (err == mgo.ErrNotFound) {
 				time.Sleep(5 * time.Second)
