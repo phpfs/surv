@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"time"
 )
 
 func syncServices(session *mgo.Session) bool {
@@ -14,6 +15,7 @@ func syncServices(session *mgo.Session) bool {
 	c := session.DB("surv").C("services")
 	for  _, service := range config.Services {
 		service.Status = true
+		service.Change = time.Now()
 		err = c.Insert(service)
 		if(err != nil){
 			fmt.Println(err)
@@ -39,6 +41,7 @@ func serviceStatus(session *mgo.Session, id string, status bool){
 		go alert(S.Name, status)
 
 		S.Status = status
+		S.Change = time.Now()
 		err = survs.Update(bson.M{"_id": S.Id}, &S)
 		if (err != nil) {
 			fmt.Println(err)

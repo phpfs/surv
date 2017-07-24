@@ -7,17 +7,24 @@ import(
 	"net/http"
 	"errors"
 	"strings"
+	"os/exec"
+	"regexp"
+	"runtime"
 )
 
 func method(task Task)(*mResult){
-	if(task.Method == "methodPing"){
-		return methodPing(task.Target)
+	if(task.Method == "methodFastPing"){
+		return methodFastPing(task.Target, false)
+	}else if(task.Method == "methodFastPingUDP"){
+		return methodFastPing(task.Target, true)
+	}else if(task.Method == "methodSystemPing"){
+		return methodSystemPing(task.Target)
 	}else if(task.Method == "methodHTTP"){
 		return methodHTTP(task.Target)
 	}else if(task.Method == "methodTCP"){
 		return methodTCP(task.Target)
 	}else {
-		var result= new(mResult)
+		var result = new(mResult)
 		result.Method = task.Method
 		result.Count = 0
 		result.Success = false
@@ -26,7 +33,50 @@ func method(task Task)(*mResult){
 	}
 }
 
-func methodPing(ip string)(*mResult){
+func methodSystemPing(host string)(*mResult){
+	var result = new(mResult)
+	result.Method = "methodSystemPing"
+	if(runtime.GOOS == "darwin" || runtime.GOOS == "linux") {
+		cmd, err := exec.Command("ping", "-c 4", host).Output()
+		if !(err != nil) {
+			reg := regexp.MustCompile(`min\/avg\/max\/\w+ = (?P<min>\d+\.\d+)\/(?P<avg>\d+\.\d+)\/(?P<max>\d+\.\d+)\/(?P<mdev>\d+\.\d+) ms`)
+			res := reg.FindAllStringSubmatch(string(cmd), -1)
+
+			if len(res) > 0 {
+				average, _ := time.ParseDuration(res[0][1] + "ms")
+				if (average > 0) {
+					result.Count = float64(average.Seconds())
+					result.Success = true
+					return result
+				} else {
+					result.Count = 0
+					result.Success = false
+					result.Error = errors.New("Error parsing average time!")
+					return result
+				}
+			} else {
+				result.Count = 0
+				result.Success = false
+				result.Error = errors.New("Error parsing `ping` command!")
+				return result
+			}
+		}else{
+			result.Method = "methodSystemPing"
+			result.Count = 0
+			result.Success = false
+			result.Error = errors.New("Supplied IP or hostname was incorrect!")
+			return result
+		}
+	}else{
+		result.Method = "methodSystemPing"
+		result.Count = 0
+		result.Success = false
+		result.Error = errors.New("You can only use this method on Linux or macOS!")
+		return result
+	}
+}
+
+func methodFastPing(ip string, udp bool)(*mResult){
 	var dur time.Duration
 	fin := false
 	fail := false
@@ -37,7 +87,9 @@ func methodPing(ip string)(*mResult){
 		fail = true
 	}
 	p.AddIPAddr(ra)
-	p.Network("udp")
+	if(udp) {
+		p.Network("udp")
+	}
 	p.OnRecv = func(addr *net.IPAddr, rtt time.Duration) {
 		//fmt.Printf("IP Addr: %s receive, RTT: %v\n", addr.String(), rtt)
 		fin = true

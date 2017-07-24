@@ -13,7 +13,7 @@ auth = "Token-For-HTTP-API"
 [[services]]
 name = "Test Google"
 target = "8.8.8.8"
-method = "methodPing"
+method = "methodSystemPing"
 [services.cron]
 every = 60
 
