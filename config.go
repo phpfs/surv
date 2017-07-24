@@ -1,8 +1,8 @@
 package main
 
 //Set your config path here:
-//(if your config.toml is in the same path, just write it's file name!)
-const configFile = "config.toml"
+//(if your config.toml.sample is in the same path, just write it's file name!)
+const configFile = "config.toml.sample"
 
 //----------------------------------------------------------
 //-------------Change-nothing-below-this-line-!-------------
