@@ -32,7 +32,7 @@ auth = "Token-For-HTTP-API"
 [[services]]
 name = "Test Google"
 target = "8.8.8.8"
-method = "methodPing"
+method = "methodSystemPing"
 [services.cron]
 every = 60
 
@@ -74,7 +74,7 @@ If you just want to receive alert on the Command Line, set `typ` to "alertCMD" a
 [[services]]
 name = "Test Google"
 target = "8.8.8.8"
-method = "methodPing"
+method = "methodSystemPing"
 [services.cron]
 every = 60
 ```
@@ -85,12 +85,12 @@ At last, specify an interval named `every` after which your service should be re
 
 ## Methods
 Currently, SurV supports 3 methods to check a service's availability:
-1. **methodPing**
+1. **methodSystemPing**
 ```toml
 [[services]]
 name = "Test Google"
 target = "8.8.8.8"
-method = "methodPing"
+method = "methodSystemPing"
 [services.cron]
 every = 60
 ```
