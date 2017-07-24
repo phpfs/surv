@@ -28,7 +28,7 @@ func TestMethodHTTP(t *testing.T){
 		t.Error(run1, "\n\nmethodHTTP Test: https://google.com - Failed")
 	}
 
-	run2 := methodSystemPing("google.com")
+	run2 := methodHTTP("google.com")
 	if(!run2.Success){
 		t.Log(run2, "\n\nmethodHTTP Test: google.com - Failed")
 	}else{
@@ -44,7 +44,7 @@ func TestMethodTCP(t *testing.T){
 		t.Error(run1, "\n\nmethodTCP Test: secureimap.t-online.de:993 - Failed")
 	}
 
-	run2 := methodSystemPing("secureimap.t-online.de:65023")
+	run2 := methodTCP("secureimap.t-online.de:65023")
 	if(!run2.Success){
 		t.Log(run2, "\n\nmethodTCP Test: secureimap.t-online.de:65023 - Failed")
 	}else{
