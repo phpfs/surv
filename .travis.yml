@@ -16,6 +16,6 @@ install:
 jobs:
   include:
     - stage: test
-      script: go test -v ./...
+      script: go test -v $(glide novendor)
     - stage: build
       script: go build
