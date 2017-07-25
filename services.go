@@ -39,6 +39,7 @@ func serviceStatus(session *mgo.Session, id string, status bool) {
 	}
 
 	if S.Status != status {
+		fmt.Println(time.Duration(S.THold)*time.Second < time.Since(S.Change), S.THold, time.Duration(S.THold)*time.Second, time.Since(S.Change))
 		if status || time.Duration(S.THold)*time.Second < time.Since(S.Change) {
 			go alert(S.Name, status)
 		}
