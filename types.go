@@ -35,6 +35,7 @@ type (
 		Last time.Time `json:"last"`
 		Change time.Time `json:"change"`
 		Status bool `json:"status"`
+		THold int `json:-`
 	}
 
 	Config struct {
