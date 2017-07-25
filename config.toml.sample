@@ -6,9 +6,9 @@ webPort = "9020"
 
 
 [alert]
-typ = "alertSystem"
-target = "Chat_ID"
-auth = "Token-For-HTTP-API"
+typ = "alertCMD"
+target = ""
+auth = ""
 
 [[services]]
 name = "Test Google"

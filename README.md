@@ -61,16 +61,14 @@ webPort = "9020"
 ```
 In this part, you can specify the number of Workers which will work on your monitoring tasks. This number should be about the same as the number of services you want to monitor!   
 Your MongoDB string should be a complete URL containing authentification, ports and hostnames.
-At last, you have to specify the ports on which the API and the Web-Page (Coming soon!) are listening (see API for more details!).
+At last, you have to specify the ports on which the API and the Web-Page (Coming soon!) are listening (see *_API_* for more details!).
 ```toml
 [alert]
-typ = "alertTelegram"
-target = "Chat_ID"
-auth = "Token-For-HTTP-API"
+typ = "alertCMD"
+target = ""
+auth = ""
 ```
-This Example is prepared for use with a telegram bot as the notificator.   
-If you just want to receive alert on the Command Line, set `typ` to "alertCMD" and leave `target` and `auth` blank!
-(You can easily discover your ChatID by contacting @cid_bot on Telegram!)
+See *_Alert_* for more information :)
 ```toml
 [[services]]
 name = "Test Google"
@@ -80,45 +78,67 @@ method = "methodSystemPing"
 every = 60
 ```
 For each service you want to monitor, you simply repeat this paragraph.
-Specify a `name` for your service, a fitting `target`and choose a `method` (see Methods) to use.   
+Specify a `name` for your service, a fitting `target`and choose a `method` (see *_Methods_*) to use.   
 At last, specify an interval named `every` after which your service should be rechecked!
 
 
 ## Methods
 Currently, SurV supports 3 methods to check a service's availability:
 1. **methodSystemPing**
-```toml
-[[services]]
-name = "Test Google"
-target = "8.8.8.8"
-method = "methodSystemPing"
-[services.cron]
-every = 60
-```
-It is important that you use a plain IP as the `target`!     
+    ```toml
+    [[services]]
+    name = "Test Google"
+    target = "8.8.8.8"
+    method = "methodSystemPing"
+    [services.cron]
+    every = 60
+    ```
+    It is important that you use a plain IP or domain as the `target`!     
 2. **methodHTTP**
-```toml
-[[services]]
-name = "Test Localhost"
-target = "http://localhost:8000"
-method = "methodHTTP"
-[services.cron]
-every = 10
-```
-Make sure to supplie a valid URL containing a protocol like http:// or ftp://!     
+    ```toml
+    [[services]]
+    name = "Test Localhost"
+    target = "http://localhost:8000"
+    method = "methodHTTP"
+    [services.cron]
+    every = 10
+    ```
+    Make sure to supplie a valid URL containing a protocol like http:// or ftp://!     
 3. **methodTCP**
-```toml
-[[services]]
-name = "IMAP"
-target = "secureimap.t-online.de:993"
-method = "methodTCP"
-[services.cron]
-every = 50
-```
-SurV will try to establish a TCP connection with service listening on the port you specified!
-This time, you have to supplie a domain or IP with the fitting port!
+    ```toml
+    [[services]]
+    name = "IMAP"
+    target = "secureimap.t-online.de:993"
+    method = "methodTCP"
+    [services.cron]
+    every = 50
+    ```
+    SurV will try to establish a TCP connection with service listening on the port you specified!
+    This time, you have to supplie a domain or IP with the fitting port!
+
+## Alert
+1. **alertCMD**
+    ```toml
+    [alert]
+    typ = "alertCMD"
+    target = ""
+    auth = ""
+    ```
+    If you choose to use _alertCMD_, SurV will print any alerts to your command line - prefixed with `[Alert] Your service...`.
+
+2. **alertTelegram**
+    ```toml
+    [alert]
+    typ = "alertTelegram"
+    target = "chat_id"
+    auth = "access_token"
+    ```
+    In this case, you have to supplie your personal chatID as `target` (contact @cid_bot on Telegram) and create a new Telegram bot (contact @BotFather on Telegram) with its access_token to put at `auth`.
 
 ## API
 Endpoints:
 - `/` - Check if SurV-API is running
-- `/services` - GET all services that registered and monitored including their current status and their last check timestamp!
+- `/services`* - GET all services that registered and monitored including their current status and their last check timestamp!
+   
+All Endpoints tagged with `*` are protected by your personal access `token` (see *_Config_*). To access them, include the following header in your requests:   
+`Authorization: _token_`
