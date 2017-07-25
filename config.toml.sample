@@ -6,7 +6,7 @@ webPort = "9020"
 
 
 [alert]
-typ = "alertTelegram"
+typ = "alertSystem"
 target = "Chat_ID"
 auth = "Token-For-HTTP-API"
 
