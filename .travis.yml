@@ -12,9 +12,13 @@ before_install:
 install:
   - glide install
 
-jobs:
-  include:
-    - stage: test
-      script: go test -v $(glide novendor)
-    - stage: build
-      script: go build
+script:
+  - go test -v $(glide novendor)
+  - go build
+
+#jobs:
+#  include:
+#    - stage: test
+#      script: go test -v $(glide novendor)
+#    - stage: build
+#      script: go build
