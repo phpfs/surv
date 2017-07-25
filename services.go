@@ -9,13 +9,14 @@ import (
 
 func syncServices(session *mgo.Session) bool {
 	fmt.Println("Purging DB...")
-	err := session.DB("surv").C("services").DropCollection()
+	err := session.DB("surv").DropDatabase()
 
 	fmt.Println("Uploading new Config to DB...")
 	c := session.DB("surv").C("services")
 	for  _, service := range config.Services {
 		service.Status = true
 		service.Change = time.Now()
+		service.THold = 0
 		err = c.Insert(service)
 		if(err != nil){
 			fmt.Println(err)
@@ -38,8 +39,13 @@ func serviceStatus(session *mgo.Session, id string, status bool){
 	}
 
 	if(S.Status != status){
-		go alert(S.Name, status)
+		if(status || time.Duration(S.THold) * time.Second < time.Since(S.Change)){
+			go alert(S.Name, status)
+		}
 
+		if(status){
+			S.THold = 0
+		}
 		S.Status = status
 		S.Change = time.Now()
 		err = survs.Update(bson.M{"_id": S.Id}, &S)

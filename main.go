@@ -7,12 +7,21 @@ import (
 	"io/ioutil"
 	"github.com/BurntSushi/toml"
 	"net/http"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var config *Config
 var alertAPI AlertAPI
 
+var (
+	flagSync = kingpin.Flag("sync", "Sync services from your config.toml - (Attention: The complete database will be purged!)").Default("false").Short('s').Bool()
+	flagHTTP = kingpin.Flag("http", "Prevent HTTP webinterface and json-api from starting!").Default("false").Short('h').Bool()
+)
+
 func main() {
+	kingpin.Version(survVersion)
+	kingpin.Parse()
+
 	fmt.Println("\n\nWelcome to |SurV|", survVersion, "- starting up...\n\n")
 
 	if(!readConfig(configFile)){
@@ -25,14 +34,19 @@ func main() {
 		fmt.Println(err)
 	}
 
-	if(!syncServices(session)){
-		panic("Sync wasn't successfull!")
+	if(*flagSync){
+		if(!syncServices(session)){
+			panic("Sync wasn't successfull!")
+		}
 	}
 
 	startAlert()
 
 	go createRunners(session)
-	go startHTTP(session)
+
+	if(!(*flagHTTP)){
+		go startHTTP(session)
+	}
 
 	scheduleLoop(session)
 }
