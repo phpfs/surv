@@ -7,13 +7,11 @@ go:
   - 1.7.x
   - master
 
+before_install:
+  - curl https://glide.sh/get | sh
+
 install:
-  - go get github.com/tatsushid/go-fastping
-  - go get github.com/BurntSushi/toml
-  - go get gopkg.in/mgo.v2
-  - go get gopkg.in/mgo.v2/bson
-  - go get gopkg.in/telegram-bot-api.v4
-  - go get gopkg.in/alecthomas/kingpin.v2
+  - glide install
 
 jobs:
   include:
