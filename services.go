@@ -43,9 +43,6 @@ func serviceStatus(session *mgo.Session, id string, status bool) {
 			go alert(S.Name, status)
 		}
 
-		if status {
-			S.THold = 0
-		}
 		S.Status = status
 		S.Change = time.Now()
 		err = survs.Update(bson.M{"_id": S.Id}, &S)
