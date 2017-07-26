@@ -36,17 +36,21 @@ func runner(s *mgo.Session, id int){
 					if (err != nil) {
 						fmt.Println(err)
 					}
+
 					task.Result = method(task)
 
-					if(!task.Result.Success){
+					i := 1
+					for (i < 5 && !task.Result.Success){
 						task.Result = nil
-						time.Sleep(5 * time.Second)
+						time.Sleep(time.Duration(i) * 10 * time.Second)
 						task.Result = method(task)
+						i++
 					}
 
 					task.Status = "finished"
 					task.Time = time.Now()
 					task.Worker = id
+					task.Tried = i
 
 					serviceStatus(session, task.Service, task.Result.Success)
 

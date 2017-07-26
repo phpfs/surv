@@ -38,17 +38,18 @@ func serviceStatus(session *mgo.Session, id string, status bool) {
 		fmt.Println(err)
 	}
 
-	if S.Status != status {
-		fmt.Println(time.Duration(S.THold)*time.Second < time.Since(S.Change), S.THold, time.Duration(S.THold)*time.Second, time.Since(S.Change))
-		if status || time.Duration(S.THold)*time.Second < time.Since(S.Change) {
-			go alert(S.Name, status)
+	S.Last = time.Now()
+	S.Running = false
 
-			S.Status = status
-			S.Change = time.Now()
-			err = survs.Update(bson.M{"_id": S.Id}, &S)
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
+	if S.Status != status {
+		go alert(S.Name, status)
+
+		S.Status = status
+		S.Change = time.Now()
+	}
+
+	err = survs.Update(bson.M{"_id": S.Id}, &S)
+	if err != nil {
+		fmt.Println(err)
 	}
 }

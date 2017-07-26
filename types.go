@@ -23,6 +23,7 @@ type (
 		Status string `json:"status"`
 		Time time.Time `json:"time"`
 		Worker int `json:"worker"`
+		Tried int `json:"tried"`
 		Result *mResult `json:"result"`
 	}
 
@@ -35,7 +36,8 @@ type (
 		Last time.Time `json:"last"`
 		Change time.Time `json:"change"`
 		Status bool `json:"status"`
-		THold int `json:"-" bson:"thold"`
+		Running bool `json:"running"`
+
 	}
 
 	Config struct {

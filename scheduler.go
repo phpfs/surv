@@ -19,7 +19,7 @@ func schedule(session *mgo.Session){
 	}
 
 	for _, S := range result {
-		if(time.Since(S.Last) > time.Duration(S.Cron.Every) * time.Second){
+		if(!S.Running && time.Since(S.Last) > time.Duration(S.Cron.Every) * time.Second){
 			task := new(Task)
 			task.Service = S.Id.Hex()
 			task.Method = S.Method
@@ -32,7 +32,7 @@ func schedule(session *mgo.Session){
 				fmt.Print(err)
 			}
 
-			S.Last = time.Now()
+			S.Running = true
 			err = survs.Update(bson.M{"_id": S.Id}, &S)
 			if (err != nil) {
 				fmt.Println(err)
