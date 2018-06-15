@@ -9,11 +9,11 @@ go:
   - master
 
 before_install:
-  - curl https://glide.sh/get | sh
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 install:
-  - glide install
+  - dep ensure
 
 script:
-  - go test -v $(glide novendor)
+  - go test
   - go build
