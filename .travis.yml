@@ -4,6 +4,8 @@ sudo: required
 go:
   - 1.7.x
   - 1.8.x
+  - 1.9.x
+  - 1.10.x
   - master
 
 before_install:
@@ -15,10 +17,3 @@ install:
 script:
   - go test -v $(glide novendor)
   - go build
-
-#jobs:
-#  include:
-#    - stage: test
-#      script: go test -v $(glide novendor)
-#    - stage: build
-#      script: go build
