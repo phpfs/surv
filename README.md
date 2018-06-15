@@ -7,10 +7,11 @@ That's why I created SurV, an application written fully in GoLang, to easily mon
 ## Installation
 Make sure, you have MongoDB installed and running!   
 
-After you added your services to `config.toml` (see Configuration), it's as easy as:
+After you added your services to `config.toml` (see Configuration) and installed godep, it's as easy as:
 ```bash
 git clone https://github.com/phpfs/surv.git
 cd surv
+dep ensure
 go build
 ```
 You now have an executable named `./surv` that you can run!
