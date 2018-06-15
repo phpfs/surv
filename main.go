@@ -22,10 +22,10 @@ func main() {
 	kingpin.Version(survVersion)
 	kingpin.Parse()
 
-	fmt.Println("\n\nWelcome to |SurV|", survVersion, "- starting up...\n\n")
+	fmt.Println("Welcome to |SurV|", survVersion, "- starting up...")
 
 	if(!readConfig(configFile)){
-		panic("Sync wasn't successfull!")
+		panic("--> Sync wasn't successfull!")
 	}
 	
 	session, err := mgo.Dial(config.Mongodb)
@@ -36,7 +36,7 @@ func main() {
 
 	if(*flagSync){
 		if(!syncServices(session)){
-			panic("Sync wasn't successfull!")
+			panic("--> Sync wasn't successfull!")
 		}
 	}
 
@@ -52,7 +52,7 @@ func main() {
 }
 
 func scheduleLoop(s *mgo.Session){
-	fmt.Println("Starting schedulement loop...")
+	fmt.Println("--> Starting schedulement loop...")
 	for ; ;  {
 		time.Sleep(time.Second)
 		schedule(s)
@@ -67,7 +67,7 @@ func createRunners(s *mgo.Session){
 }
 
 func readConfig(conf string) bool {
-	fmt.Println("Reading Config file ", conf, "...")
+	fmt.Println("--> Reading Config file ", conf, "...")
 	rawData, err := ioutil.ReadFile(conf)
 	if(err != nil){
 		fmt.Println(err)
@@ -75,7 +75,7 @@ func readConfig(conf string) bool {
 	}
 	tomlData := string(rawData)
 
-	fmt.Println("Parsing TOML...")
+	fmt.Println("--> Parsing TOML...")
 	if _, err := toml.Decode(tomlData, &config); err != nil {
 		fmt.Println(err)
 		return false
@@ -85,7 +85,7 @@ func readConfig(conf string) bool {
 }
 
 func startHTTP(s *mgo.Session){
-	fmt.Println("Starting HTTP API...")
+	fmt.Println("--> Starting HTTP API...")
 	http.HandleFunc("/", apiMain)
 	http.HandleFunc("/services", func(w http.ResponseWriter, r *http.Request) {
 		apiServices(s, w, r)
